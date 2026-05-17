@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/mega_asr_logo.png" alt="Mega-ASR Logo" width="220">
+  <img src="assets/figures/mega_asr_logo.png" alt="Mega-ASR Logo" width="220">
 </p>
 
 <h1 align="center">Mega-ASR: Towards In-the-Wild Speech Recognition</h1>
@@ -26,13 +26,8 @@
 </p>
 
 
-## Introduction
 
-We present Mega-ASR, an open-source speech recognition model for robust ASR under complex dirty speech conditions. Mega-ASR is designed to improve recognition stability on medium- and high-error-rate audio, including noisy, far-field, distorted, stuttering, echoic, obstructed, and mixed-interference speech.
 
-This repository contains the official implementation, model weights, core training data, and evaluation toolkit for Mega-ASR.
-
-This repository is currently under active development.
 
 
 ## 🔥🔥🔥 News!!
@@ -41,7 +36,33 @@ This repository is currently under active development.
 - **May 20, 2025**: 🔥 We release **Voices-in-the-Wild-2M**, a benchmark for in-the-wild ASR robustness evaluation. [[Dataset]](https://huggingface.co/datasets/zhifeixie/Voices-in-the-Wild-test-v2)
 - **Coming soon**: 🔥 We will release the **DAPO-LoRA training code**.
 
+## Contents
 
+- [Introduction](#introduction)
+- [Model Download](#model-download)
+- [Main Results](#main-results)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Inference](#inference)
+- [Finetune](#finetune)
+- [Evaluation](#evaluation)
+
+
+
+## Introduction
+
+
+Mega-ASR is designed for speech recognition in complex real-world acoustic environments, where speech signals are often affected by noise, reverberation, far-field recording, low volume, distortion, stuttering, echo, obstruction, and multiple overlapping interferences. Unlike general-purpose ASR systems that mainly perform well on clean or moderately noisy speech, Mega-ASR focuses on medium- and high-error-rate audio conditions, where recognition stability becomes more challenging.
+
+To improve robustness, Mega-ASR is built with large-scale dirty speech data and a two-stage robustness training pipeline. The released resources include model weights, core training data, evaluation benchmarks, and WER/CER evaluation scripts, enabling reproducible research and further development of robust ASR systems for in-the-wild scenarios.
+
+### Highlights
+
+- **Robust dirty and general ASR**: supports stable recognition for both in-the-wild dirty speech and general audio.
+- **2M-scale dirty speech corpus**: covers noise, far-field recording, distortion, stuttering, echo, obstruction, and mixed acoustic interference.
+- **SFT + RL robustness training**: improves recognition stability under complex acoustic conditions through supervised fine-tuning and reinforcement learning.
+- **Reproducible WER/CER evaluation**: provides standard scripts and benchmarks for ASR robustness evaluation.
+- **DAPO-LoRA roadmap**: reinforcement learning training code will be released in a future update.
 
 
 ## Model Download
@@ -57,6 +78,15 @@ After downloading the model weights, please specify the model path in the corres
 
 
 ## Project Structure
+
+
+<p align="center">
+  <img src="assets/figures/method_overview.png" alt="Mega-ASR Method Overview" width="95%">
+</p>
+
+<p align="center">
+  <b>Figure 1.</b> Overview of the Mega-ASR training pipeline, including acoustic-to-speech supervised fine-tuning and reward-based optimization for robust speech recognition.
+</p>
 
 ```text
 Mega-ASR/
@@ -89,6 +119,48 @@ Mega-ASR/
       └─ DAPO_lora/
          └─ DAPO-LoRA training module, to be released in a future update.
 ```
+
+## Main Results
+
+Mega-ASR is evaluated across three benchmark families, including noisy and robust ASR benchmarks, Voices-in-the-Wild-Bench, and standard ASR benchmarks. Lower WER/CER indicates better recognition performance.
+
+<p align="center">
+  <img src="assets/figures/radar_results.png" alt="Radar comparison of Mega-ASR" width="95%">
+</p>
+
+<p align="center">
+  <b>Figure 2.</b> Radar comparison of Qwen3-ASR-1.7B and Mega-ASR across selected ASR evaluation subsets.
+</p>
+
+### Noisy and Robust ASR Benchmarks
+
+<p align="center">
+  <img src="assets/tables/noisy_robust_asr_benchmarks.png" alt="Performance comparison on noisy and robust ASR benchmarks" width="95%">
+</p>
+
+<p align="center">
+  <b>Table 1.</b> Performance comparison on noisy and robust ASR benchmarks.
+</p>
+
+### Voices-in-the-Wild-Bench
+
+<p align="center">
+  <img src="assets/tables/voices_in_the_wild_breakdown.png" alt="Breakdown results on Voices-in-the-Wild-Bench" width="95%">
+</p>
+
+<p align="center">
+  <b>Table 2.</b> Breakdown results on Voices-in-the-Wild-Bench by acoustic scenario.
+</p>
+
+### Standard ASR Benchmarks
+
+<p align="center">
+  <img src="assets/tables/standard_asr_benchmarks.png" alt="Performance comparison on standard ASR benchmarks" width="95%">
+</p>
+
+<p align="center">
+  <b>Table 3.</b> Performance comparison on standard ASR benchmarks. For LibriSpeech, each entry is reported as clean/other.
+</p>
 
 ## Quick Start
 
@@ -161,18 +233,33 @@ python eval/evaluate_wer.py \
   --ref references.jsonl
 ```
 
-## Training
+
+
+## Finetune
+
+Mega-ASR provides fine-tuning support for acoustic robustness adaptation, including supervised fine-tuning and reinforcement learning based training.
 
 ### SFT-LoRA Training
+
+The SFT-LoRA pipeline is provided under `src_MegaASR/train/SFT_lora/`. It is used to adapt the model to complex dirty speech scenarios with supervised training data.
 
 ```bash
 python src_MegaASR/train/SFT_lora/SFT_lora.py \
   --config configs/sft_lora.yaml
 ```
-
 ### DAPO-LoRA Training
 
 The DAPO-LoRA training module is under active research and will be released in a future version.
+
+## Evaluation
+
+We provide standard WER/CER evaluation utilities for ASR robustness testing.
+
+```bash
+python eval/evaluate_wer.py \
+  --pred predictions.jsonl \
+  --ref references.jsonl
+```
 
 ## Roadmap
 
