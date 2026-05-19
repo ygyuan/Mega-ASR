@@ -282,7 +282,7 @@ src/MegaASR/A2S-SFT/
 ├── trainer.py        # Defines MegaASRTrainer with adapter-only saving and module-wise learning rates.
 ```
 
-```
+
 Training data is in JSONL format:
 
 ```json
