@@ -1,11 +1,13 @@
 <p align="center">
-  <img src="assets/figures/mega_asr_logo.png" alt="Mega-ASR Logo" width="100">
+  <img src="assets/figures/mega_asr_logo.png" alt="Mega-ASR Logo" width="15%">
 </p>
+
+
 <h1 align="center">Mega-ASR: Towards In-the-Wild^2 Speech Recognition via Scaling Up Real-world Acoustic Simulation</h1>
-<p align="center">
-  <b>You’ll come back to Mega-ASR — after finding the rest fail in the real world.
-  </b> 
-</p>
+
+We introduce **MEGA-ASR**, the first foundation ASR model to target **full-scenario robust speech recognition in the wild** through systematic training on **7 atomic acoustic conditions** and **54 compound acoustic scenarios**. Built on **2.6M training samples** covering **noise, far-field speech, obstruction, echo and reverberation, recording artifacts, electronic distortion, and transmission dropout**, MEGA-ASR uses **three-stage SFT** and **DG-WGPO based RL** to achieve **up to nearly 30% gains** over leading open and closed source SOTA models in challenging acoustic environments.
+
+<p align="center"><u><em>You’ll come back to Mega-ASR — after finding the rest fail in the real world.</em></u></p>
 
 <p align="center">
   <a href="https://xzf-thu.github.io/Mega-ASR/">
@@ -24,6 +26,7 @@
 
 
 
+### Comparson with SOTA open-source and closed-source models.
 
 | Audio | Ground Truth | Mega-ASR (Ours) | Qwen3-ASR | Gemini-3-Pro | Seed-ASR | Whisper |
 |---|---|---|---|---|---|---|
