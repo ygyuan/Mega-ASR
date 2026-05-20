@@ -5,13 +5,13 @@
 
 <h1 align="center">Mega-ASR: Towards In-the-Wild^2 Speech Recognition via Scaling Up Real-world Acoustic Simulation</h1>
 
-We introduce **MEGA-ASR**, the first foundation ASR model to target **full-scenario robust speech recognition in the wild** through systematic training on **7 atomic acoustic conditions** and **54 compound acoustic scenarios**. Built on **2.6M training samples** covering **noise, far-field speech, obstruction, echo and reverberation, recording artifacts, electronic distortion, and transmission dropout**, MEGA-ASR uses **A2S-SFT** and **DG-WGPO based RL** to achieve **up to nearly 30% gains** over leading open and closed source SOTA models in challenging acoustic environments.
+We introduce **MEGA-ASR**, the first foundation ASR model to target **full-scenario robust speech recognition in the wild** through systematic training on **7 atomic acoustic conditions** and **54 compound acoustic scenarios**. Built on **2.6M training samples** covering **noise, far-field speech, obstruction, echo and reverberation, recording artifacts, electronic distortion, and transmission dropout**, MEGA-ASR uses **A2S-SFT** and **DG-WGPO based RL** to achieve **up to nearly 30% gains** over leading open and closed source SOTA models in challenging acoustic environments. If you like us, please give us a star✨.
 
 <p align="center"><u><em>You’ll come back to Mega-ASR — after finding the rest fail in the real world.</em></u></p>
 
 
 <p align="center">
-  <a href="https://arxiv.org/pdf/2508.15827">Technical Report 📖</a> /
+  <a href="https://arxiv.org/abs/2605.19833">Technical Report 📖</a> /
   <a href="https://huggingface.co/datasets/zhifeixie/Voices-in-the-Wild-2M">Voices-in-the-wild-2M 🤗</a> /
   <a href="https://huggingface.co/zhifeixie/Mega-ASR">Mega-ASR Weights 🤗</a> /
   <a href="https://github.com/xzf-thu/Voices-in-the-Wild-Bench">Voices-in-the-Wild-Bench 🏆</a>
@@ -208,8 +208,10 @@ We introduce **MEGA-ASR**, the first foundation ASR model to target **full-scena
 
 ## 🔥News
 
-
-- **May 21, 2025**: 🔥 We release **Voices-in-the-Wild-Bench**, a benchmark for in-the-wild ASR robustness evaluation.
+- [Coming]: We are going to release RL code and optimize WebUI.
+- [Coming]: Dataset and benchmark will be reformatted to be clearer.
+- [Coming]: We will release all the data process pipeline.
+- **May 20, 2025**: 🔥 We release **Voices-in-the-Wild-Bench**, a benchmark for in-the-wild ASR robustness evaluation.
 - **May 20, 2025**: 🔥 We release **Voices-in-the-Wild-2M**.
 - **May 20, 2025**: 🔥 We release the **Mega-ASR Inference and Training Codebase**.
 - **May 19, 2025**: 🔥 **Mega-ASR** model weights are now available on Hugging Face.
@@ -226,6 +228,8 @@ We introduce **MEGA-ASR**, the first foundation ASR model to target **full-scena
 * **[Citation and licence](#citation)**
 
 ## Quick Start
+
+Mega-ASR is trained on a large volume of inherently high-WER data, which leads to a slight degradation in its basic recognition capability. To address this, **we equip the system with a router** that determines whether Mega-ASR should be activated for the current audio input, via deciding whether to mount the LoRA weights.
 
 
 **Installation**
@@ -359,7 +363,7 @@ On top of Mega-ASR-Base, DG-WGPO further optimizes the model with WER-gated poli
 Run Qwen3-ASR inference and compute WER (English) / CER (Chinese) on JSONL data:
 
 ```bash
-CUDA_VISIBLE_DEVICES=6,7 python evaluate_wer.py \
+python evaluate_wer.py \
   --input_jsonl example/examples.jsonl \
   --output_jsonl output_with_wer.jsonl
 ```
