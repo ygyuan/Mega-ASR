@@ -19,7 +19,7 @@ ref_len     # number of reference words or characters
 ```
 
 The script reuses the Mega-ASR inference wrapper, so it loads the base Qwen3-ASR model,
-the merged Mega-ASR LoRA, and the router from the checkpoint directory:
+the Mega-ASR LoRA, and the router from the checkpoint directory:
 
 ```text
 ckpt/Mega-ASR/

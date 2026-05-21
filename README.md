@@ -342,7 +342,7 @@ wer         # WER/CER score value; CER is also stored in this field for compatib
 num_edits   # edit distance between prediction and ground truth
 ref_len     # number of reference words or characters
 ```
-The script reuses the same Mega-ASR wrapper as `infer.py`, loading the base model, merged LoRA, and router from `ckpt/Mega-ASR`.
+The script reuses the same Mega-ASR wrapper as `infer.py`, loading the base model, LoRA, and router from `ckpt/Mega-ASR`.
 
 ```bash
 python src/MegaASR/eval/evaluate_wer.py \
@@ -360,7 +360,7 @@ python src/MegaASR/eval/evaluate_wer.py \
 On top of Mega-ASR-Base, DG-WGPO further optimizes the model with WER-gated policy learning: low-WER samples emphasize token-level acoustic refinement, while high-WER samples emphasize sentence-level semantic reconstruction to reduce hallucinations, omissions, and off-audio outputs. The final reward combines a static WER-based accuracy signal with an anti-repetition gate and a dynamic dual-granularity reward, using fixed hyperparameters τ=0.3, αs=0.4, and αdyn=0.6.
 
 
-Run Mega-ASR inference without routing if you want to force the merged LoRA on every sample:
+Run Mega-ASR inference without routing if you want to force the LoRA on every sample:
 
 ```bash
 python src/MegaASR/eval/evaluate_wer.py \
