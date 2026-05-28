@@ -233,6 +233,21 @@ class MegaASR:
 
         return self.asr
 
+    def init_streaming_state(self, **kwargs: Any) -> Any:
+        if self.backend != "vllm":
+            raise RuntimeError("Streaming inference is only supported by the vLLM backend.")
+        return self._select_asr(True).init_streaming_state(**kwargs)
+
+    def streaming_transcribe(self, audio: Any, state: Any) -> Any:
+        if self.backend != "vllm":
+            raise RuntimeError("Streaming inference is only supported by the vLLM backend.")
+        return self._select_asr(True).streaming_transcribe(audio, state)
+
+    def finish_streaming_transcribe(self, state: Any) -> Any:
+        if self.backend != "vllm":
+            raise RuntimeError("Streaming inference is only supported by the vLLM backend.")
+        return self._select_asr(True).finish_streaming_transcribe(state)
+
     @torch.no_grad()
     def batch_infer(self, audios: list[Any], **kwargs: Any) -> list[Any]:
         audio_paths = [self._unwrap_audio(audio) for audio in audios]

@@ -135,6 +135,15 @@ class Qwen3ASRVLLM:
 
         return str(getattr(results, "text", results)).strip()
 
+    def init_streaming_state(self, **kwargs: Any) -> Any:
+        return self.model.init_streaming_state(**kwargs)
+
+    def streaming_transcribe(self, audio: Any, state: Any) -> Any:
+        return self.model.streaming_transcribe(audio, state)
+
+    def finish_streaming_transcribe(self, state: Any) -> Any:
+        return self.model.finish_streaming_transcribe(state)
+
 
 def get_mega_asr(*args: Any, **kwargs: Any) -> Qwen3ASRVLLM:
     return Qwen3ASRVLLM(*args, **kwargs)

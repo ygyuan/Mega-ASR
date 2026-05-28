@@ -217,6 +217,7 @@ We introduce **MEGA-ASR**, the first foundation ASR model to target **full-scena
 - [Coming]: We are going to release RL code and optimize WebUI.
 - [Coming]: Dataset and benchmark will be reformatted to be clearer.
 - [Coming]: We will release all the data process pipeline.
+- **May 28, 2026**: 🔥 We add Mega-ASR vLLM streaming inference support and a long-form streaming demo audio.
 - **May 20, 2026**: 🔥 We release **Voices-in-the-Wild-Bench**, a benchmark for in-the-wild ASR robustness evaluation.
 - **May 20, 2026**: 🔥 We release **Voices-in-the-Wild-2M**.
 - **May 20, 2026**: 🔥 We release the **Mega-ASR Inference and Training Codebase**.
@@ -305,6 +306,20 @@ engine, so this vLLM entrypoint materializes LoRA into a normal checkpoint
 before engine startup instead of doing router-based dynamic switching.
 Qwen3-ASR streaming inference is available only through the official vLLM
 backend and does not support batch inference or timestamps.
+
+Mega-ASR also provides a vLLM streaming entrypoint. It uses the same
+materialized LoRA checkpoint cache as `infer_vllm.py`, then feeds audio chunks
+into Qwen3-ASR's streaming API:
+
+```bash
+python infer_vllm_streaming.py \
+  --audio assets/example/streaming_long_example.wav \
+  --step_ms 1000 \
+  --max_new_tokens 32
+```
+
+The script prints partial text after each streaming call and a final transcript
+after `finish_streaming_transcribe`.
 
 
 ## Introduction
